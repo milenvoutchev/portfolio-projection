@@ -1,6 +1,5 @@
 import NumberFormat from "react-number-format";
-
-import { TextField, Typography } from "@material-ui/core";
+import { TextField } from "@material-ui/core";
 
 export default function CurrencyInput(props) {
     return (
