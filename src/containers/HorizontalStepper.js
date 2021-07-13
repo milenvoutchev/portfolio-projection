@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles, useTheme } from '@material-ui/core/styles';
 import Stepper from '@material-ui/core/Stepper';
 import Step from '@material-ui/core/Step';
 import StepLabel from '@material-ui/core/StepLabel';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
-import { Grid } from "@material-ui/core";
+import { Grid, useMediaQuery } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -18,6 +18,9 @@ const useStyles = makeStyles((theme) => ({
 
 export default function HorizontalStepper({ labels, components }) {
     const classes = useStyles();
+    const theme = useTheme();
+    const isXs = useMediaQuery(theme.breakpoints.down('xs'))
+
     const [activeStep, setActiveStep] = useState(0);
     const steps = labels || ['Step 1', 'Step 2'];
     const stepComponents = components || [
@@ -46,7 +49,7 @@ export default function HorizontalStepper({ labels, components }) {
         <div className={classes.root}>
             <Grid container spacing={3}>
                 <Grid item xs={12}>
-                    <Stepper activeStep={activeStep}>
+                    <Stepper activeStep={activeStep} orientation={isXs ? "vertical" : "horizontal"}>
                         {steps.map((label, index) => {
                             const stepProps = {};
                             const labelProps = {};
