@@ -8,6 +8,11 @@ const AliceTheme = createTheme({
             dark: '#0A7C6A',
             contrastText: '#fff',
         },
+        common: {
+            portfolio: "#8884d8",
+            contributions: "#ffc658",
+            returns: "#82ca9d",
+        },
     },
 });
 
