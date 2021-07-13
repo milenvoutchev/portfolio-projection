@@ -1,5 +1,8 @@
-import Fmp from "./service/Fmp";
+import React from 'react';
+import { render } from "react-dom";
+import App from "./containers/App";
+import AliceTheme from "./theme/AliceTheme";
+import { ThemeProvider } from "@material-ui/core";
 
-(async function(){
-    console.log(await Fmp.fetchHistoricPrices());
-})();
+render(<ThemeProvider theme={AliceTheme}><App /></ThemeProvider>, document.getElementById("app"));
+
