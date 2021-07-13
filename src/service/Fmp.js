@@ -16,9 +16,10 @@ class Fmp {
         }
 
         this.token = process.env.MIX_FMP_KEY;
+        this.cache = new Map();
     }
 
-    async fetchHistoricPrices(symbols = SYMBOLS, periodStart = PERIOD_START, periodEnd = PERIOD_END) {
+    async fetchHistoricalPrices(symbols = SYMBOLS, periodStart = PERIOD_START, periodEnd = PERIOD_END) {
         if (typeof symbols === 'string') {
             symbols = [symbols];
         }
@@ -26,12 +27,24 @@ class Fmp {
         const startStr = format(new Date(periodStart), 'yyyy-MM-dd');
         const endStr = format(new Date(periodEnd), 'yyyy-MM-dd');
 
-        const requestUri = `https://financialmodelingprep.com/api/v3/historical-price-full/${SYMBOLS.toString()}?from=${startStr}&to=${endStr}&apikey=${this.token}`;
+        const requestUri = `https://financialmodelingprep.com/api/v3/historical-price-full/${SYMBOLS.toString()}?serietype=line&from=${startStr}&to=${endStr}&apikey=${this.token}`;
+
+        if (this.cache.has(requestUri)) {
+            return this.cache.get(requestUri);
+        }
 
         const response = await this.get(requestUri);
+
+        this.cache.set(requestUri, response.data);
 
         return response.data;
     }
 }
+
+// (async function(){
+    // @todo remove me
+    // let fmp = new Fmp();
+    // console.log(await fmp.fetchHistoricalPrices());
+// })();
 
 export default new Fmp();
