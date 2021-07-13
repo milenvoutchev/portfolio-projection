@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import HorizontalStepper from "./HorizontalStepper";
 import Typography from "@material-ui/core/Typography";
 import PersonalData from "./PersonalData";
@@ -6,6 +6,7 @@ import { Container, Paper } from "@material-ui/core";
 import { makeStyles } from "@material-ui/styles";
 import Hero from "../components/Hero";
 import InvestmentParameters from "./InvestmentParameters";
+import Dashboard from "./Dashboard";
 
 const useStyles = makeStyles((theme) => ({
     paper: {
@@ -14,20 +15,34 @@ const useStyles = makeStyles((theme) => ({
         alignItems: 'center',
         padding: theme.spacing(4),
         margin: theme.spacing(1),
+        minWidth: 300,
     },
 }));
 export default function App() {
     const classes = useStyles();
+    const [name, setName] = useState('');
+    const [income, setIncome] = useState(2000);
+    const [risk, setRisk] = useState(5);
 
     const labels = ['Personal Data', 'Investment Parameters', 'Portfolio Projection'];
     const components = [
-        <PersonalData/>,
-        <InvestmentParameters/>,
-        <Typography>Dashboard</Typography>,
+        <PersonalData
+            name={name}
+            onChangeName={setName} />,
+        <InvestmentParameters
+            income={income}
+            onChangeIncome={setIncome}
+            risk={risk}
+            onChangeRisk={setRisk} />,
+        <Dashboard
+            name={name}
+            income={income}
+            risk={risk}
+        />,
     ];
 
     return (
-        <Container maxWidth="md">
+        <Container maxWidth="lg">
             <Paper variant="elevation" className={classes.paper}>
                 <Hero/>
             </Paper>

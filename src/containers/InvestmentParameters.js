@@ -10,28 +10,25 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-export default function InvestmentParameters() {
+export default function InvestmentParameters({income, onChangeIncome, risk, onChangeRisk}) {
     const classes = useStyles();
 
-    const onChangeSlider = value => {
-        console.log('onChangeSlider', value);
-    };
     return (
         <form>
             <div className={classes.labeledInput}>
                 <Typography id="income-label">
-                    How much do you earn ($/month)?
+                    How much do you earn? ($/month)
                 </Typography>
 
                 <CurrencyInput
-                    defaultValue={2000}
+                    defaultValue={income}
                     variant="outlined"
                     margin="normal"
                     required
                     fullWidth
                     name="income"
                     aria-labelledby="income-label"
-                    onChange={(value) => console.log(value)}
+                    onValueChange={onChangeIncome}
                 />
             </div>
 
@@ -40,7 +37,10 @@ export default function InvestmentParameters() {
                     What is your risk tolerance level?
                 </Typography>
                 <RiskSlider
-                    onChange={onChangeSlider}/>
+                    value={risk}
+                    name="risk-slider"
+                    aria-labelledby="risk-slider-label"
+                    onChange={onChangeRisk}/>
             </div>
         </form>
     )

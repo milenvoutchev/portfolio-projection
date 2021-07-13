@@ -1,4 +1,4 @@
-import { Button, Slider, Typography } from "@material-ui/core";
+import { Slider } from "@material-ui/core";
 import React from "react";
 
 const marks = [
@@ -16,22 +16,21 @@ const marks = [
     },
 ];
 
-export default function RiskSlider({onChange}) {
+export default function RiskSlider({onChange, ...props}) {
     const handleChange = (event, newValue) => {
         onChange(newValue);
     };
     return (
         <React.Fragment>
             <Slider
+                {...props}
                 min={0}
                 step={1}
                 max={10}
-                defaultValue={5}
-                aria-labelledby="risk-slider-label"
                 valueLabelDisplay="auto"
                 marks={marks}
                 track={false}
-                onChangeCommitted={handleChange}
+                onChange={handleChange}
             />
         </React.Fragment>
     )

@@ -9,7 +9,7 @@ export default function CurrencyInput(props) {
             prefix={'$'}
             type="text"
             thousandSeparator={props.thousandSeparator ? ' ' : null}
-            onValueChange={props.onChange ? ({value}) => props.onChange(value) : null}
+            onValueChange={props.onValueChange ? ({value}) => props.onValueChange(value) : null}
         />
     )
 }
