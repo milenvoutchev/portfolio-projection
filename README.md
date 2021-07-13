@@ -6,6 +6,11 @@
     ```shell
     git clone git@github.com:milenvoutchev/alice-challenge.git
     ```
+1. Set API key
+    ```shell
+    cp .env.dist .env
+    ```
+   And fill out in `.env` your personal API key (from https://financialmodelingprep.com/developer/docs/dashboard).
 1. Install dependencies
     ```shell
     npm install
