@@ -8,8 +8,9 @@ As such, I've built a simple questionnaire out of the questions below and then s
 
 Questionnaire Questions:
 
-- How much do can you invest per month?
-- What is your risk tolerance level? (Slider between 0-10)
+- What's your name?
+- How much do you earn per month?
+- What is your risk tolerance? 
 
 Once the questionnaire is completed, there is a dashboard showing a graph of how the portfolio has developed between 1.1.2017 and 1.6.2021.
 
