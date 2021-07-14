@@ -1,9 +1,5 @@
 import axios from "axios";
-import { format } from "date-fns";
-
-const SYMBOLS = ['CAKE','PZZA','EAT'];
-const PERIOD_START = new Date(2017,1,1);
-const PERIOD_END = new Date(2017,1,4);  // new Date(2021,6,1);
+import { lightFormat as format } from "date-fns";
 
 class Fmp {
     constructor() {
@@ -19,7 +15,7 @@ class Fmp {
         this.cache = new Map();
     }
 
-    async fetchHistoricalPrices(symbols = SYMBOLS, periodStart = PERIOD_START, periodEnd = PERIOD_END) {
+    async fetchHistoricalStockList(periodStart, periodEnd, symbols) {
         if (typeof symbols === 'string') {
             symbols = [symbols];
         }
@@ -27,7 +23,7 @@ class Fmp {
         const startStr = format(new Date(periodStart), 'yyyy-MM-dd');
         const endStr = format(new Date(periodEnd), 'yyyy-MM-dd');
 
-        const requestUri = `https://financialmodelingprep.com/api/v3/historical-price-full/${SYMBOLS.toString()}?serietype=line&from=${startStr}&to=${endStr}&apikey=${this.token}`;
+        const requestUri = `https://financialmodelingprep.com/api/v3/historical-price-full/${symbols.toString()}?serietype=line&from=${startStr}&to=${endStr}&apikey=${this.token}`;
 
         if (this.cache.has(requestUri)) {
             return this.cache.get(requestUri);
@@ -35,16 +31,44 @@ class Fmp {
 
         const response = await this.get(requestUri);
 
-        this.cache.set(requestUri, response.data);
+        if (!response.data?.historicalStockList) {
+            throw new Error('Invalid response received');
+        }
 
-        return response.data;
+        this.cache.set(requestUri, response.data.historicalStockList);
+
+        return response.data.historicalStockList;
+    }
+
+    async fetchDailyClosePrices(periodStart, periodEnd, symbols) {
+        const historicalStockList = await this.fetchHistoricalStockList(periodStart, periodEnd, symbols);
+
+        return Fmp.mapDailyClose(historicalStockList);
+    }
+
+    static mapDailyClose(historicalStockList = []) {
+        const pricesByDate = new Map();
+
+        for (const symbolData of historicalStockList) {
+            const symbol = symbolData.symbol;
+
+            symbolData.historical.forEach(historical => {
+                const date = historical.date;
+                const close = historical.close;
+
+                if (!pricesByDate.has(date)) {
+                    pricesByDate.set(date, {})
+                }
+
+                pricesByDate.set(date, {
+                    ...pricesByDate.get(date),
+                    [symbol]: close,
+                })
+            })
+        }
+
+        return pricesByDate;
     }
 }
-
-// (async function(){
-    // @todo remove me
-    // let fmp = new Fmp();
-    // console.log(await fmp.fetchHistoricalPrices());
-// })();
 
 export default new Fmp();
