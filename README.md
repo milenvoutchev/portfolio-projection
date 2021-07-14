@@ -16,6 +16,12 @@ Once the questionnaire is completed, there is a dashboard showing a graph of how
 
 ### Calculations Geek-out
 
+Based on the risk tolerance one of three portfolio allocation strategies are chosen:
+
+- Cautious: Bonds 50%, ETF 35%, [FAANG](https://www.investopedia.com/terms/f/faang-stocks.asp) stocks 15%
+- Neutral: Bonds 40%, ETF 30%, [FAANG](https://www.investopedia.com/terms/f/faang-stocks.asp) stocks 30%
+- Bold: Bonds 30%, ETF 25%, [FAANG](https://www.investopedia.com/terms/f/faang-stocks.asp) stocks 45%
+
 The portfolio develops as follows:
 
 - At the beginning of each month (the first day that the stock market is open), the given sum is always invested. The stocks bought are those in the portfolio, based on the supplied weighting.

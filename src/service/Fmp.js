@@ -31,6 +31,10 @@ class Fmp {
 
         const response = await this.get(requestUri);
 
+        if (response.data?.error) {
+            throw new Error(`Error response received: ${response.data.error}`);
+        }
+
         if (!response.data?.historicalStockList) {
             throw new Error('Invalid response received');
         }
