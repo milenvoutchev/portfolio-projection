@@ -28,22 +28,6 @@ The portfolio develops as follows:
 - I assume that the first contribution took place on 3.1.2017 and the last contribution on 1.6.2021
 - The close price is used as the purchase price of the partial share
 
-**Calculation Example**
-
-As an example, if the user contributes $300 per month and has a risk tolerance of 1
-
-Therefore, on 3.1.2017 is invested:
-
-- $60 in *CAKE for 0.864 shares*
-- $150 in *PZZA for 1.763 shares*
-- $90 in *EAT for 1.830 shares*
-
-If they did not invest any further, as of 1.6.2021 these shares would be worth:
-
-- CAKE: $100.90
-- PZZA: $168.17
-- EAT: $104.95
-
 The [https://financialmodelingprep.com/developer/docs/](https://financialmodelingprep.com/developer/docs/) API for historical stock data is being used.
 
 ---
