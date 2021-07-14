@@ -19,7 +19,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 export default function App() {
     const classes = useStyles();
-    const [name, setName] = useState('Alice');
+    const [name, setName] = useState('Milen');
     const [income, setIncome] = useState(2000);
     const [risk, setRisk] = useState(5);
 

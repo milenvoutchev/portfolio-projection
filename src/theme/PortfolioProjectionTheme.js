@@ -1,6 +1,6 @@
 import { createTheme } from '@material-ui/core/styles';
 
-const AliceTheme = createTheme({
+const PortfolioProjectionTheme = createTheme({
     palette: {
         primary: {
             light: '#6BC0C5',
@@ -16,4 +16,4 @@ const AliceTheme = createTheme({
     },
 });
 
-export default AliceTheme;
+export default PortfolioProjectionTheme;
