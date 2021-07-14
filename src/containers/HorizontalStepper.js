@@ -16,7 +16,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-export default function HorizontalStepper({ labels, components }) {
+export default function HorizontalStepper({labels, components}) {
     const classes = useStyles();
     const theme = useTheme();
     const isXs = useMediaQuery(theme.breakpoints.down('xs'))
@@ -65,7 +65,12 @@ export default function HorizontalStepper({ labels, components }) {
                     {getStepComponent(activeStep)}
                 </Grid>
                 <Grid item xs={12}>
-                    <Button disabled={activeStep === 0} onClick={handleBack} className={classes.button}>
+                    <Button
+                        variant="contained"
+                        disabled={activeStep === 0}
+                        onClick={handleBack}
+                        className={classes.button}
+                    >
                         Back
                     </Button>
 

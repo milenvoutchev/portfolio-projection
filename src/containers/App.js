@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import HorizontalStepper from "./HorizontalStepper";
-import Typography from "@material-ui/core/Typography";
 import PersonalData from "./PersonalData";
 import { Container, Paper } from "@material-ui/core";
 import { makeStyles } from "@material-ui/styles";
@@ -20,7 +19,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 export default function App() {
     const classes = useStyles();
-    const [name, setName] = useState('');
+    const [name, setName] = useState('Alice');
     const [income, setIncome] = useState(2000);
     const [risk, setRisk] = useState(5);
 
@@ -28,12 +27,12 @@ export default function App() {
     const components = [
         <PersonalData
             name={name}
-            onChangeName={setName} />,
+            onChangeName={setName}/>,
         <InvestmentParameters
             income={income}
             onChangeIncome={setIncome}
             risk={risk}
-            onChangeRisk={setRisk} />,
+            onChangeRisk={setRisk}/>,
         <Dashboard
             name={name}
             income={income}
@@ -42,7 +41,7 @@ export default function App() {
     ];
 
     return (
-        <Container maxWidth="lg">
+        <Container maxWidth="md">
             <Paper variant="elevation" className={classes.paper}>
                 <Hero/>
             </Paper>

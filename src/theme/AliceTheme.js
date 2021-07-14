@@ -9,9 +9,9 @@ const AliceTheme = createTheme({
             contrastText: '#fff',
         },
         common: {
-            portfolio: "#8884d8",
-            contributions: "#ffc658",
-            returns: "#82ca9d",
+            portfolio: "#82ca9d",
+            contributions: "#8884d8",
+            returns: "#ffc658",
         },
     },
 });
