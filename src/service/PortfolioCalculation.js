@@ -78,35 +78,43 @@ const PORTFOLIOS = {
 const FORMAT_PRESENTATION = 'dd.MM.yyyy';
 const FORMAT_FMT = 'yyyy-MM-dd';
 
-class Portfolio {
+class PortfolioCalculation {
     constructor(risk, income, contributionPercentage = CONTRIBUTION_PERCENTAGE) {
         this.risk = risk;
         this.income = income;
         this.contributionPercentage = contributionPercentage;
-        this.monthlyInvestment = (income * contributionPercentage).toFixed(2);
+        this.monthlyInvestment = this.getMonthlyInvestment();
         this.symbols = this.getSymbols();
-        this.portfolio = this.getPortfolio();
+        this.portfolioRatios = this.getPortfolioRatios();
+    }
+
+    getMonthlyInvestment(income = this.income, contributionPercentage = this.contributionPercentage) {
+        return (income * contributionPercentage).toFixed(2);
     }
 
     getWeight(symbol) {
-        const symbolData = this.portfolio.filter(element => element.ticker === symbol);
+        const symbolData = this.portfolioRatios.filter(element => element.ticker === symbol);
 
         return symbolData[0].weight;
     }
 
-    getPortfolio() {
+    getPortfolioRatios() {
         const portfolio = PORTFOLIOS[RISK_PORTFOLIOS_MAP[this.risk]];
-        console.log(portfolio)
+
         return portfolio;
     }
 
+    getPortfolioName() {
+        return RISK_PORTFOLIOS_MAP[this.risk];
+    }
+
     getSymbols() {
-        return this.getPortfolio().map(element => element.ticker);
+        return this.getPortfolioRatios().map(element => element.ticker);
     }
 
     async getProjection(periodStart = PERIOD_START, periodEnd = PERIOD_END) {
         const dailyClosePrices = await Fmp.fetchDailyClosePrices(periodStart, periodEnd, this.symbols);
-        const investDates = Portfolio.getInvestDates(dailyClosePrices, periodStart, periodEnd);
+        const investDates = PortfolioCalculation.getInvestDates(dailyClosePrices, periodStart, periodEnd);
         const purchases = this.getPurchases(investDates, dailyClosePrices);
 
         const performance = [];
@@ -134,7 +142,8 @@ class Portfolio {
                 contributionPercentage: this.contributionPercentage,
                 monthlyInvestment: this.monthlyInvestment,
                 symbols: this.symbols,
-                portfolio: this.portfolio,
+                portfolioRatios: this.portfolioRatios,
+                portfolioName: this.getPortfolioName(),
                 portfolioAmount: performance.slice(-1)[0].portfolio,
                 returns: performance.slice(-1)[0].returns,
                 contributions: performance.slice(-1)[0].contributions,
@@ -147,7 +156,7 @@ class Portfolio {
         let upToDatePurchases = purchases.filter(purchase => isBefore(purchase.date, date) || isSameDay(purchase.date, date));
 
         const portfolioSum = upToDatePurchases.reduce((sum, purchase) => {
-            const close = Portfolio.getClose(dailyClosePrices, date, purchase.symbol)
+            const close = PortfolioCalculation.getClose(dailyClosePrices, date, purchase.symbol)
 
             sum += purchase.partialShares * close;
 
@@ -163,7 +172,7 @@ class Portfolio {
             this.symbols.forEach(symbol => {
                 const weight = this.getWeight(symbol);
                 const investSum = this.getInvestSum(weight);
-                const close = Portfolio.getClose(dailyClose, date, symbol);
+                const close = PortfolioCalculation.getClose(dailyClose, date, symbol);
                 const partialShares = investSum / close;
 
                 purchases.push({
@@ -216,4 +225,4 @@ class Portfolio {
     }
 }
 
-export default Portfolio;
+export default PortfolioCalculation;
