@@ -2,9 +2,9 @@
 
 ## Description
 
-This is a personal project to help me get started investing in my own tailored portfolio. To this goal, I should input a few variables to understand my personal financial status and possibilities.
+The goal is to help a newbie retail investor - the user of the tool - to get started with investing. 
 
-As such, I've built a simple questionnaire out of the questions below and then show which portfolio, would make sense to me based on the chosen risk tolerance.
+There are few variables to understand their personal financial status and possibilities. Therefore are is a simple questionnaire and then show which portfolio, would make sense to the user based on the chosen risk tolerance.
 
 Questionnaire Questions:
 
